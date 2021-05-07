@@ -23,7 +23,7 @@ To train Beef, simply run:
 python -m bootstrap.run -o options/hdd_beef.yaml --dataset.dir_data /directory/to/hdd/folder
 ```
 
-To run our multi-task, run:
+To run our multi-task baseline, run:
 ```
 python -m bootstrap.run -o options/hdd_baseline_multitask.yaml --dataset.dir_data /directory/to/hdd/folder
 ```
