@@ -1,0 +1,80 @@
+exp:
+  dir: /root/workspace/logs/beef/hdd_baseline_multitask
+  resume: null
+dataset:
+  import: datasets.factory
+  name: hdd_classif
+  dir_data: /datasets_local/HDD
+  train_split: train
+  eval_split: val
+  nb_threads: 6
+  batch_size: 12
+  debug: false
+  fps: 3
+  horizon: 2
+  im_size: small
+  win_size: 21
+  layer: cause
+  frame_position: 20
+  traintest_mode: true
+model:
+  name: default
+  network:
+    inputs_opt:
+      img: true
+      prev_points: true
+      blinkers: true
+    import: models.networks.factory
+    name: baseline_multitask_hdd
+    n_classes: 7
+    blinkers_dim: 32
+    n_future: 13
+    layer_to_extract: output
+    dim_features: 512
+    gru_opt:
+      hidden_size: 256
+      num_layers: 1
+      dropout: 0.0
+  criterion:
+    import: models.criterions.factory
+    name: multitask_hdd
+    use_class_weights: true
+  metric:
+    import: models.metrics.factory
+    name: multi_metrics
+    metrics:
+    - future_traj
+    - map
+misc:
+  logs_name: null
+  cuda: true
+  seed: 1337
+engine:
+  name: logger
+  debug: false
+  print_freq: 10
+  nb_epochs: 1
+  saving_criteria:
+  - eval_epoch.loss:min
+  - eval_epoch.mAP:max
+  - eval_epoch.loss_classif:min
+view:
+  import: views.factory
+  name: plotly
+  plot_width: 4096
+  items:
+  - logs:train_epoch.loss+logs:eval_epoch.loss
+  - logs:train_epoch.loss_driving+logs:eval_epoch.loss_driving
+  - logs:train_epoch.loss_classif+logs:eval_epoch.loss_classif
+  - logs:train_epoch.future_mse+logs:eval_epoch.future_mse
+  - logs:train_epoch.mAP+logs:eval_epoch.mAP
+  - logs:train_epoch.congestion_ap+logs:eval_epoch.congestion_ap
+  - logs:train_epoch.Sign_ap+logs:eval_epoch.Sign_ap
+  - logs:train_epoch.red light_ap+logs:eval_epoch.red light_ap
+  - logs:train_epoch.crossing vehicle_ap+logs:eval_epoch.crossing vehicle_ap
+  - logs:train_epoch.Parked vehicle_ap+logs:eval_epoch.Parked vehicle_ap
+  - logs:train_epoch.crossing pedestrian_ap+logs:eval_epoch.crossing pedestrian_ap
+optimizer:
+  name: adam
+  lr: 0.0001
+  momentum: 0.99

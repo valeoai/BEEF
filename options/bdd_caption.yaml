@@ -1,0 +1,56 @@
+__include__: abstract_bdd.yaml
+dataset:
+  import: datasets.factory
+  name: bdd_caption
+  features_dir: baseline_input_signals,true_normalized_outputs
+  batch_size: 32
+  n_before: 20
+  nb_threads: 6
+model:
+  network:
+    import: models.networks.factory_bdd_caption
+    name: bdd_caption
+    lstm_hidden_size: 64
+    temperature: 0.03 # Useful only for sampling_strategy == "sample"
+    sampling_strategy: top1 # or sample
+    gru_lstm: lstm # or gru
+    output_sentence: justification # justification, or action, or caption
+    fusion:
+        layers_to_fuse: ['layer2', 'output'] # Only one layer or two layers
+        type: block # cf factory_fusions for others choices
+        output_dim: 512
+        mm_dim: 256
+        chunks: 5
+        rank: 5
+        pos_norm: after_cat
+  metric:
+    import: models.metrics.factory
+    bleu_smoothing: 1
+    name: bdd_caption
+  criterion:
+    import: models.criterions.factory 
+    name: bdd_caption
+optimizer:
+  name: adam
+  lr: 0.0003
+  momentum: 0.99
+  weight_decay: 0.
+engine:
+  nb_epochs: 40
+  saving_criteria:
+  - eval_epoch.loss:min
+  - eval_epoch.bleucoco_action:max
+  - eval_epoch.meteorcoco_action:max
+  - eval_epoch.cider_action:max
+  - eval_epoch.bleucoco_justification:max
+  - eval_epoch.meteorcoco_justification:max
+  - eval_epoch.cider_justification:max
+view:
+  items:
+    - logs:train_epoch.loss+logs:eval_epoch.loss
+    - logs:train_epoch.bleucoco_action+logs:eval_epoch.bleucoco_action
+    - logs:train_epoch.meteorcoco_action+logs:eval_epoch.meteorcoco_action
+    - logs:train_epoch.cider_action+logs:eval_epoch.cider_action
+    - logs:train_epoch.bleucoco_justification+logs:eval_epoch.bleucoco_justification
+    - logs:train_epoch.meteorcoco_justification+logs:eval_epoch.meteorcoco_justification
+    - logs:train_epoch.cider_justification+logs:eval_epoch.cider_justification

@@ -1,0 +1,31 @@
+exp:
+  dir: /root/workspace/logs/bdd/debug
+  resume: # last, best_[...], or empty (from scratch)
+dataset:
+  import: datasets.factory
+  name: bdd_drive
+  dir_data: BDD-X
+  train_split: train
+  eval_split: val
+  nb_threads: 0
+  batch_size: 2
+  debug: false
+model:
+  name: default
+misc:
+  logs_name:
+  cuda: True
+  seed: 1234
+engine:
+  name: logger
+  debug: False
+  print_freq: 10
+  nb_epochs: 22
+  saving_criteria:
+  - eval_epoch.loss:min
+view:
+  import: views.factory
+  name: plotly
+  plot_width: 4096
+  items:
+    - logs:train_epoch.loss+logs:eval_epoch.loss

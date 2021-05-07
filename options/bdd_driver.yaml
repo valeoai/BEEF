@@ -1,0 +1,56 @@
+exp:
+  dir: /root/workspace/logs/beef/bdd/driver
+  resume: null
+dataset:
+  import: datasets.factory
+  name: bdd_drive
+  dir_data: BDD-X
+  train_split: train
+  eval_split: val
+  nb_threads: 6
+  batch_size: 12
+  debug: false
+  n_before: 20
+model:
+  name: default
+  network:
+    import: models.networks.factory_bdd
+    name: bdd-drive
+    use_input_signals: true
+  metric:
+    import: models.metrics.factory
+    name: bdd-drive
+  criterion:
+    import: models.criterions.factory
+    name: bdd-drive
+    normalize_outputs: true
+    scales:
+      course: 1
+      accelerator: 1
+misc:
+  logs_name: null
+  cuda: true
+  seed: 1337
+engine:
+  name: logger
+  debug: false
+  print_freq: 10
+  nb_epochs: 22
+  saving_criteria:
+  - eval_epoch.loss:min
+view:
+  import: views.factory
+  name: plotly
+  plot_width: 4096
+  items:
+  - logs:train_epoch.loss+logs:eval_epoch.loss
+  - logs:train_epoch.accel_loss+logs:eval_epoch.accel_loss
+  - logs:train_epoch.course_loss+logs:eval_epoch.course_loss
+  - logs:train_epoch.accel_mae+logs:eval_epoch.accel_mae
+  - logs:train_epoch.course_mae+logs:eval_epoch.course_mae
+  - logs:train_epoch.accel_correl+logs:eval_epoch.accel_correl
+  - logs:train_epoch.course_correl+logs:eval_epoch.course_correl
+optimizer:
+  name: adam
+  lr: 0.0001
+  momentum: 0.99
