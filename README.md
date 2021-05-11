@@ -56,7 +56,7 @@ If you use our code and/or our article, you can cite us using:
 ```
 @article{beef2020,
   author    = {Hedi Ben{-}Younes and
-               Eloi Zablocki and
+               {\'{E}}loi Zablocki and
                Patrick P{\'{e}}rez and
                Matthieu Cord},
   title     = {Driving Behavior Explanation with Multi-level Fusion},
