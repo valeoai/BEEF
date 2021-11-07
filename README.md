@@ -60,8 +60,8 @@ If you use our code and/or our article, you can cite us using:
                Patrick P{\'{e}}rez and
                Matthieu Cord},
   title     = {Driving Behavior Explanation with Multi-level Fusion},
-  journal   = {NeurIPS Workshop on Machine Learning for Autonomous Driving (ML4AD)},
-  year      = {2020}
+  journal   = {Pattern Recognition (PR)},
+  year      = {2021}
 }
 ```
 
