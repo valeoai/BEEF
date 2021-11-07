@@ -54,7 +54,7 @@ python -m bootstrap.run -o options/bdd_caption.yaml --dataset.dir_data /director
 If you use our code and/or our article, you can cite us using:
 
 ```
-@article{beef2020,
+@article{beef2021,
   author    = {Hedi Ben{-}Younes and
                {\'{E}}loi Zablocki and
                Patrick P{\'{e}}rez and
