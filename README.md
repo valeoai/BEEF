@@ -1,6 +1,6 @@
 # Introduction
 
-This repository is the code for our article [Driving Behavior Explanation with Multi-level Fusion](https://arxiv.org/abs/2012.04983), accepted at NeurIPS Workshop ML4AD 2020. It was built for `Python 3.7` using `PyTorch 1.3.1` and `bootstrap.pytorch 0.0.13` (see [this repo](https://github.com/Cadene/bootstrap.pytorch)).
+This repository is the code for our article [Driving Behavior Explanation with Multi-level Fusion](https://arxiv.org/abs/2012.04983), accepted at Pattern Recognition 2022 and NeurIPS Workshop ML4AD 2020. It was built for `Python 3.7` using `PyTorch 1.3.1` and `bootstrap.pytorch 0.0.13` (see [this repo](https://github.com/Cadene/bootstrap.pytorch)).
 
 # Training on HDD
 
@@ -54,14 +54,14 @@ python -m bootstrap.run -o options/bdd_caption.yaml --dataset.dir_data /director
 If you use our code and/or our article, you can cite us using:
 
 ```
-@article{beef2021,
+@article{beef2022,
   author    = {Hedi Ben{-}Younes and
                {\'{E}}loi Zablocki and
                Patrick P{\'{e}}rez and
                Matthieu Cord},
   title     = {Driving Behavior Explanation with Multi-level Fusion},
   journal   = {Pattern Recognition (PR)},
-  year      = {2021}
+  year      = {2022}
 }
 ```
 
